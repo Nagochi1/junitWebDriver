@@ -17,6 +17,7 @@ public class ParentTestSinatra {
 		String usuario="frank";
 		String pwd="sinatra";
 		String titulo="Moon River";
+		String tituloEditado="Moon River Editado";
 		int duracion= 120;
 		String fecha="05/19/2018";
 		String letra="Moon river, wider than a mile I'm crossin' you in style some day Old dream maker, you heartbreaker";
@@ -125,17 +126,34 @@ public class ParentTestSinatra {
 		return fecha;
 	}
 	
+	protected void buscarCancion(String titulo1) {
+		driver.findElement(By.xpath("//a[@href='/songs']")).click();
+		driver.findElement(By.xpath("//a[contains(text(),'"+titulo+"')]")).click();
+		
+	}
+	
 	
 	protected void eliminarCancion(String titulo1) {
-		driver.findElement(By.xpath("//a[@href='/songs']")).click();
-		driver.findElement(By.xpath("//a[@href='/songs/70']")).click();
 		driver.findElement(By.xpath("//input[@value='delete this song']")).click();
 	
+	}
+	
+	protected void editarCancion(String titulo2) {
+		driver.findElement(By.xpath("//a[contains(text(),'edit this song')]")).click();
+		driver.findElement(By.xpath("//input[@id='title']")).clear();
+		driver.findElement(By.xpath("//input[@id='title']")).sendKeys(tituloEditado);
+		driver.findElement(By.xpath("//input[@value='Save Song']")).click();
+			
+	}
+	
+	protected void darLike() {
+		driver.findElement(By.xpath("//input[@value='Like']")).click();
+		
 	}
 
 		
 	@After
 	public void tearDown() {
-		//driver.quit();
+		driver.quit();
 	}
 }
